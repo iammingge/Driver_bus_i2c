@@ -100,7 +100,7 @@ void mode_SDA(IO_MODE mode)
         GPIO_InitStruct.Pull = GPIO_NOPULL;
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
         HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
-        firsttime = 0;
+        firsttime++;
     }
     if (mode == IO_IN)
     {
