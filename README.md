@@ -152,12 +152,12 @@ i2c_config(&sw_i2c);
 
 ### *Actual waveform*
 
-![0](F:\Second_Studio\Public\Driver_bus_i2c\bmp\0.png)
+![image](bmp\0.png)
 
 
 
-![1](F:\Second_Studio\Public\Driver_bus_i2c\bmp\1.png)
+![image](bmp\1.png)
 
 
 
-![2](F:\Second_Studio\Public\Driver_bus_i2c\bmp\2.png)
+![image](bmp\2.png)
