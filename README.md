@@ -152,12 +152,12 @@ i2c_config(&sw_i2c);
 
 ### *Actual waveform*
 
-![image](bmp\0.png)
+![image](bmp/0.png)
 
 
 
-![image](bmp\1.png)
+![image](bmp/1.png)
 
 
 
-![image](bmp\2.png)
+![image](bmp/2.png)
