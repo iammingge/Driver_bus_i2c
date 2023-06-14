@@ -20,6 +20,7 @@
  *      DATE             NAME                      DESCRIPTION
  *
  *   06-05-2023        iammingge                Initial Version 1.0
+ *   06-14-2023        iammingge                Fix bus timing and strictly follow standard timing
  *
 **/
 
@@ -43,7 +44,7 @@ typedef enum
  */
 typedef struct
 {
-    void (*holdtime)(void);
+    void (*holdtime)(uint8_t mult);
     void (*sda_mode)(IO_MODE mode);
     void (*scl_mode)(IO_MODE mode);
     void (*set_scl)(uint8_t level);
@@ -54,21 +55,22 @@ typedef struct
 /**
  * @brief Software i2c bus function (master mode)
  */
-void i2c_config(sw_i2c_t *port);                    /* Init I2C Bus IO */
-void i2c_strt(sw_i2c_t *port);                    	/* I2C start signal */
-void i2c_stop(sw_i2c_t *port);                     	/* I2C stop signal */
-uint8_t i2c_wbyte(sw_i2c_t *port, uint8_t byte);  	/* I2C transmit one byte data */
-uint8_t i2c_rbyte(sw_i2c_t *port, I2C_RSP ack);   	/* I2C receive one byte data */
+void swi2c_config(sw_i2c_t *port);                    	/* software I2C Bus Init */
+void swi2c_strt(sw_i2c_t *port);                    	/* software I2C start signal */
+void swi2c_stop(sw_i2c_t *port);                     	/* software I2C stop signal */
+void swi2c_reset(sw_i2c_t *port);						/* software I2C bus reset */
+I2C_RSP swi2c_wbyte(sw_i2c_t *port, uint8_t byte);  	/* software I2C transmit one byte data */
+uint8_t swi2c_rbyte(sw_i2c_t *port, I2C_RSP ack);   	/* software I2C receive one byte data */
 
 /**
  * @brief Hardware i2c bus port (master mode)
  */
 typedef struct
 {
-    uint8_t(*send)(uint16_t devaddr, uint8_t *pdata, uint32_t size);
-    uint8_t(*recv)(uint16_t devaddr, uint8_t *pdata, uint32_t size);
-    uint8_t(*wmem)(uint16_t devaddr, uint16_t memaddr, uint8_t memaddrsize, uint8_t *pdata, uint32_t size);
-    uint8_t(*rmem)(uint16_t devaddr, uint16_t memaddr, uint8_t memaddrsize, uint8_t *pdata, uint32_t size);
+    uint8_t(*send)(uint16_t devaddr, uint8_t *pdata, uint32_t size);											/* hardware I2C transmit data */
+    uint8_t(*recv)(uint16_t devaddr, uint8_t *pdata, uint32_t size);											/* hardware I2C receive data */
+    uint8_t(*wmem)(uint16_t devaddr, uint16_t memaddr, uint8_t memaddrsize, uint8_t *pdata, uint32_t size); 	/* hardware I2C write memory */
+    uint8_t(*rmem)(uint16_t devaddr, uint16_t memaddr, uint8_t memaddrsize, uint8_t *pdata, uint32_t size);		/* hardware I2C read memory */
 } hw_i2c_t;
 
 #endif
