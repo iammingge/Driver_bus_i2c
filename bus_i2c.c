@@ -297,6 +297,41 @@ void swi2c_reset(sw_i2c_t *port)
     /* IIC stop */
     swi2c_stop(port);
 }
+/**
+ * @brief  I2c sends the target address for transmitting data
+ * @param  {sw_i2c_t} *port : device port
+ * @param  {uint8_t} addr   : the target address (Bit0 ignored)
+ * @return {I2C_RSP}        : response signal
+ *                            ACK (Acknowledge signal)
+ *                            NACK (Not acknowledge signal)
+ * @note   none
+ */
+I2C_RSP swi2c_waddr(sw_i2c_t *port, uint8_t addr)
+{
+	I2C_RSP ret;
+
+	ret = swi2c_wbyte(port, addr & 0xFE);
+	
+	return ret;
+}
+/**
+ * @brief  I2c sends the target address for receiving data
+ * @param  {sw_i2c_t} *port : device port
+ * @param  {uint8_t} addr   : the target address (Bit0 ignored)
+ * @return {I2C_RSP}        : response signal
+ *                            ACK (Acknowledge signal)
+ *                            NACK (Not acknowledge signal)
+ * @note   none
+ */
+I2C_RSP swi2c_raddr(sw_i2c_t *port, uint8_t addr)
+{
+	I2C_RSP ret;
+	
+	ret = swi2c_wbyte(port, addr | 0x01);
+	
+	return ret;
+}
+
 
 
 

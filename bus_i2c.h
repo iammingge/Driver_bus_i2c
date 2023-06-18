@@ -61,6 +61,8 @@ void swi2c_stop(sw_i2c_t *port);                     	/* software I2C stop signa
 void swi2c_reset(sw_i2c_t *port);						/* software I2C bus reset */
 I2C_RSP swi2c_wbyte(sw_i2c_t *port, uint8_t byte);  	/* software I2C transmit one byte data */
 uint8_t swi2c_rbyte(sw_i2c_t *port, I2C_RSP ack);   	/* software I2C receive one byte data */
+I2C_RSP swi2c_waddr(sw_i2c_t *port, uint8_t addr);		/* software I2C sends the target address for transmitting data */
+I2C_RSP swi2c_raddr(sw_i2c_t *port, uint8_t addr);		/* software I2C sends the target address for receiving data */
 
 /**
  * @brief Hardware i2c bus port (master mode)
