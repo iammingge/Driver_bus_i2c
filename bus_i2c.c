@@ -48,13 +48,15 @@ void swi2c_config(sw_i2c_t *port)
  */
 void swi2c_strt(sw_i2c_t *port)
 {
-    /* convert SDA and SCL IO mode */
+    /* convert SDA IO mode */
     port->sda_mode(IO_OUT);
-    port->scl_mode(IO_OUT);
 
+	port->holdtime(1);
+	port->set_sda(1);
+	port->holdtime(1);
+	
     /* Data valid : SCL High
        Bus  start : SDA High -> Low */
-    port->set_sda(1);
     port->set_scl(1);
     port->holdtime(2);
     port->set_sda(0);
@@ -68,13 +70,15 @@ void swi2c_strt(sw_i2c_t *port)
  */
 void swi2c_stop(sw_i2c_t *port)
 {
-    /* convert SDA and SCL IO mode */
+    /* convert SDA IO mode */
     port->sda_mode(IO_OUT);
-    port->scl_mode(IO_OUT);
 
+	port->holdtime(1);
+    port->set_sda(0);
+	port->holdtime(1);
+	
     /* Data valid : SCL High
        Bus  stop  : SDA Low -> High */
-    port->set_sda(0);
     port->set_scl(1);
     port->holdtime(2);
     port->set_sda(1);
@@ -117,6 +121,7 @@ static void swi2c_send_rsp(sw_i2c_t *port, I2C_RSP ack)
 
     /* Data variable / invalid : SCL Low */
     port->set_scl(0);
+	/* port->set_sda(0); */
 }
 /**
  * @brief  I2C receive response signal
@@ -149,7 +154,8 @@ static I2C_RSP swi2c_recv_rsp(sw_i2c_t *port)
 
     /* Data variable / invalid : SCL Low */
     port->set_scl(0);
-
+	/* port->set_sda(0); */
+	
     /* success */
     return ret_ack;
 }
